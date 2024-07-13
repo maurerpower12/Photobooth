@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Photobooth</title>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'">
+    <link rel="stylesheet" type="text/css" href="./styles.css">
+</head>
+<body>
+    <div id="app">
+        <video id="camera-feed" autoplay></video>
+        <canvas id="canvas" class="d-none"></canvas>
+        <div id="overlay">
+            <div id="state-display" class="debug">State: Idle</div>
+            <div id="idle-state" class="state active">
+                <h1>Welcome to the Photobooth!</h1>
+                <p>Press the Start button and get in position</p>
+                <button id="start-button" class="big-button">Start</button>
+            </div>
+            <div id="wait-for-input-state" class="state">
+                <button id="input-button" class="big-button">Press to Start</button>
+            </div>
+            <div id="prepare-for-countdown-state" class="state">
+                <p id="photo-instructions"></p>
+            </div>
+            <div id="countdown-sequence-state" class="state">
+                <p id="countdown-timer"></p>
+            </div>
+            <div id="review-state" class="state">
+                <div id="thumbnails"></div>
+                <img src="./img/ShareQRCode.png" alt="Share QR Code" id="qrCode" />
+                <button id="done-button">Done</button>
+                <h2>Thank you!</h2>
+            </div>
+        </div>
+    </div>
+    <script src="./jQuery3-7-1.js"></script>
+    <script src="./renderer.js"></script>
+    <script src="./webcam.js"></script>
+</body>
+</html>
