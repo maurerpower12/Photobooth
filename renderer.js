@@ -7,11 +7,11 @@ document.addEventListener('DOMContentLoaded', () => {
         review: document.getElementById('review-state')
     };
 
-    const COUNTDOWN_TIME_IN_SECONDS = 5;
+    const COUNTDOWN_TIME_IN_SECONDS = 3;
     const NUMBER_OF_PICTURES = 3;
     const PHOTO_INSTRUCTIONS = ["Get Ready!", "Strike a Pose!", "Say Cheese!"];
     const webcamElement = document.getElementById('camera-feed');
-    const canvasElement = document.getElementById('canvas');
+    const canvasElement = document.getElementById('camera-canvas');
     const snapSoundElement = new Audio('/audio/onPhotoTaken.wav');
     const webcam = new Webcam(webcamElement, 'user', canvasElement, snapSoundElement);
     let currentState = 'idle';
