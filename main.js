@@ -1,8 +1,10 @@
 const { app, BrowserWindow } = require('electron');
-const electronDl = require('electron-dl');
-
-electronDl();
 const path = require('node:path')
+
+//import electronDl from 'electron-dl';
+//const electronDl = require('electron-dl');
+//electronDl();
+
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -12,11 +14,11 @@ function createWindow() {
     titleBarStyle: 'hidden',
     disableAutoHideCursor: true,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, 'renderer.js')
     }
   });
 
-  mainWindow.maximize();
+  win.maximize();
   win.loadFile('index.html');
 }
 
