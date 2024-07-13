@@ -1,7 +1,7 @@
 {
-  "name": "intelligent-boundary-service-h8wqv",
-  "productName": "intelligent-boundary-service-h8wqv",
-  "description": "My Electron application description",
+  "name": "Photobooth",
+  "productName": "Photobooth",
+  "description": "A Photobooth app built on Electron",
   "keywords": [],
   "main": "./main.js",
   "version": "1.0.0",
