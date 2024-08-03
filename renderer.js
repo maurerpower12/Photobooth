@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const states = {
         idle: document.getElementById('idle-state'),
-        waitForInput: document.getElementById('wait-for-input-state'),
         prepareForCountdown: document.getElementById('prepare-for-countdown-state'),
         countdownSequence: document.getElementById('countdown-sequence-state'),
         review: document.getElementById('review-state')
@@ -181,10 +180,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Event listeners
     document.getElementById('start-button').addEventListener('click', () => {
-        switchState('waitForInput');
-    });
-
-    document.getElementById('input-button').addEventListener('click', () => {
         switchState('prepareForCountdown');
         startPhotoCaptureSequence();
     });
@@ -195,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.addEventListener('keydown', (event) => {
-        if (event.code === 'Space' && currentState === 'waitForInput') {
+        if (event.code === 'Space' && currentState === 'idle') {
             switchState('prepareForCountdown');
             startPhotoCaptureSequence();
         }
