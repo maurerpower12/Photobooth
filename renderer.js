@@ -13,8 +13,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const canvasElement = document.getElementById('camera-canvas');
     const snapSoundElement = new Audio('/audio/onPhotoTaken.wav');
     const webcam = new Webcam(webcamElement, 'user', canvasElement, snapSoundElement);
+    // Compostite Settings
+    const NUMBER_OF_COLS = 2;
+    const NUMBER_OF_ROWS = 2;
+
     let currentState = 'idle';
     let photoIndex = 0;
+    let sessionIndex = 0;
     let countdownInterval;
     let reviewTimeout;
     let pictureCounter = 0;
@@ -171,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function savePhoto() {
         let picture = webcam.snap();
         pictureCounter++;
-    
+
         var a = document.createElement('a');
         a.setAttribute('href', picture);
         capturedPhotos.push(picture);
@@ -207,15 +212,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const context = canvas.getContext('2d');
         const photoWidth = 400;
         const photoHeight = 300;
-        canvas.width = photoWidth * NUMBER_OF_PICTURES;
-        canvas.height = photoHeight;
+        canvas.width = photoWidth * NUMBER_OF_COLS;
+        canvas.height = photoHeight * NUMBER_OF_ROWS;
 
         capturedPhotos.forEach((photoUrl, index) => {
             const img = new Image();
-            console.log("photo " + index + " " + photoUrl.slice(0,20));
             img.src = photoUrl;
             img.onload = () => {
-                context.drawImage(img, index * photoWidth, 0, photoWidth, photoHeight);
+                const col = index % NUMBER_OF_COLS;
+                const row = Math.floor(index / NUMBER_OF_COLS);
+                context.drawImage(img, col * photoWidth, row * photoHeight, photoWidth, photoHeight);
                 if (index === capturedPhotos.length -1) {
                     const compositeImageUrl = canvas.toDataURL('image/png');
                     displayCompositePhoto(compositeImageUrl);
@@ -233,9 +239,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const img = document.createElement('img');
         img.src = compositeImageUrl;
         img.alt = "Compositie Photo";
-        img.width = 400 * NUMBER_OF_PICTURES;
+        img.width = 400 * NUMBER_OF_COLS;
+        img.height = 300 * NUMBER_OF_ROWS;
         compositeDiv.innerHTML = '';
         compositeDiv.appendChild(img);
+
+        var a = document.createElement('a');
+        a.setAttribute('href', compositeImageUrl);
+        a.setAttribute('download', `photoboothComposite${++sessionIndex}@${getDateTime()}.jpg`);
+    
+        var aj = $(a);
+        aj.appendTo('body');
+        aj[0].click();
+        aj.remove();
     }
 
     // Event listeners
