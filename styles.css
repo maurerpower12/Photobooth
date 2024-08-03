@@ -10,6 +10,10 @@ body, html {
     background-color: #f0f0f0;
 }
 
+.d-none {
+    display: none;
+}
+
 #app {
     position: relative;
     width: 100%;
@@ -37,7 +41,7 @@ video#camera-feed {
     align-items: center;
     text-align: center;
     background-color: rgba(0, 0, 0, 0.5);
-    opacity: 0.5;
+    opacity: 0.9;
 }
 
 .state {
@@ -49,28 +53,10 @@ video#camera-feed {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-#overlay h1, #overlay p {
     background: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
     padding: 10px;
     backdrop-filter: blur(5px);
-}
-
-#start-button, #input-button {
-    width: 100px;
-    height: 100px;
-    background: red;
-    color: white;
-    font-size: 20px;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-#start-button:active, #input-button:active {
-    background: darkred;
 }
 
 #state-display {
@@ -86,4 +72,28 @@ video#camera-feed {
 #qrCode {
     width: 100px;
     height: 100px;
+}
+
+#start-button, #input-button  {
+  align-items: center;
+  background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+  border: 0;
+  border-radius: 50%;
+  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  display: flex;
+  font-family: Phantomsans, sans-serif;
+  font-size: 20px;
+  justify-content: center;
+  line-height: 1em;
+  width: 200px;
+  height: 200px;
+  padding: 19px 24px;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  cursor: pointer;
 }
