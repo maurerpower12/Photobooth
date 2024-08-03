@@ -4,7 +4,7 @@
     <title>Photobooth</title>
     <meta charset="UTF-8">
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self';img-src 'self' data:; script-src 'self'; style-src 'self' 'unsafe-inline'">
     <link rel="stylesheet" type="text/css" href="./styles.css">
 </head>
 <body>
@@ -25,7 +25,8 @@
                 <p id="countdown-timer"></p>
             </div>
             <div id="review-state" class="state">
-                <div id="thumbnails"></div>
+                <div id="thumbnails" class="d-none"></div>
+                <div id="composite-photo"></div>
                 <img src="./img/ShareQRCode.png" alt="Share QR Code" id="qrCode" />
                 <button id="done-button">Done</button>
                 <h2>Thank you!</h2>

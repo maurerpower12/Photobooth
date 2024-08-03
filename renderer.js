@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const COUNTDOWN_TIME_IN_SECONDS = 3;
-    const NUMBER_OF_PICTURES = 3;
+    const NUMBER_OF_PICTURES = 4;
     const PHOTO_INSTRUCTIONS = ["Get Ready!", "Strike a Pose!", "Say Cheese!"];
     const webcamElement = document.getElementById('camera-feed');
     const canvasElement = document.getElementById('camera-canvas');
@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let countdownInterval;
     let reviewTimeout;
     let pictureCounter = 0;
+    let capturedPhotos = [];
 
     /**
      * Switches the application to the specified state.
@@ -48,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * Starts the photo capture sequence.
      */
     function startPhotoCaptureSequence() {
+        capturedPhotos = [];
         photoIndex = 0;
         captureNextPhoto();
     }
@@ -65,6 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 2000);
         } else {
             switchState('review');
+            displayCapturedPhotos();
+            createCompositePhoto();
             startReviewTimeout();
         }
     }
@@ -170,12 +174,68 @@ document.addEventListener('DOMContentLoaded', () => {
     
         var a = document.createElement('a');
         a.setAttribute('href', picture);
+        capturedPhotos.push(picture);
         a.setAttribute('download', `photobooth${pictureCounter}@${getDateTime()}.jpg`);
     
         var aj = $(a);
         aj.appendTo('body');
         aj[0].click();
         aj.remove();
+    }
+
+    /**
+     * Displays the captures photos in the thumbnails.
+     */
+    function displayCapturedPhotos() {
+        const thumbnailsDiv = document.getElementById('thumbnails');
+        thumbnailsDiv.innerHTML = '';
+
+        capturedPhotos.forEach((photoUrl, index) => {
+            const img = document.createElement('img');
+            img.src = photoUrl;
+            img.onload = () => {
+                thumbnailsDiv.appendChild(img);
+            }
+        });
+    }
+
+    /**
+     * Creates a composite photo from all captured photos.
+     */
+    function createCompositePhoto() {
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        const photoWidth = 400;
+        const photoHeight = 300;
+        canvas.width = photoWidth * NUMBER_OF_PICTURES;
+        canvas.height = photoHeight;
+
+        capturedPhotos.forEach((photoUrl, index) => {
+            const img = new Image();
+            console.log("photo " + index + " " + photoUrl.slice(0,20));
+            img.src = photoUrl;
+            img.onload = () => {
+                context.drawImage(img, index * photoWidth, 0, photoWidth, photoHeight);
+                if (index === capturedPhotos.length -1) {
+                    const compositeImageUrl = canvas.toDataURL('image/png');
+                    displayCompositePhoto(compositeImageUrl);
+                }
+            }
+        });
+    }
+
+    /**
+     * Displays a composite photo from all captured photos.
+     * @param {string} compositeImageUrl - the data url of the composite image.
+     */
+    function displayCompositePhoto(compositeImageUrl) {
+        const compositeDiv = document.getElementById('composite-photo');
+        const img = document.createElement('img');
+        img.src = compositeImageUrl;
+        img.alt = "Compositie Photo";
+        img.width = 400 * NUMBER_OF_PICTURES;
+        compositeDiv.innerHTML = '';
+        compositeDiv.appendChild(img);
     }
 
     // Event listeners
