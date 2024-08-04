@@ -175,17 +175,20 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function savePhoto() {
         let picture = webcam.snap();
+        const fileName = `photobooth${pictureCounter}@${getDateTime()}.jpg`;
         pictureCounter++;
 
         var a = document.createElement('a');
         a.setAttribute('href', picture);
         capturedPhotos.push(picture);
-        a.setAttribute('download', `photobooth${pictureCounter}@${getDateTime()}.jpg`);
+        a.setAttribute('download', fileName);
     
         var aj = $(a);
         aj.appendTo('body');
         aj[0].click();
         aj.remove();
+
+        uploadImage(picture,fileName);
     }
 
     /**
@@ -237,6 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function displayCompositePhoto(compositeImageUrl) {
         const compositeDiv = document.getElementById('composite-photo');
         const img = document.createElement('img');
+        const fileName = `photoboothComposite${++sessionIndex}@${getDateTime()}.jpg`;
         img.src = compositeImageUrl;
         img.alt = "Compositie Photo";
         img.width = 400 * NUMBER_OF_COLS;
@@ -246,12 +250,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
         var a = document.createElement('a');
         a.setAttribute('href', compositeImageUrl);
-        a.setAttribute('download', `photoboothComposite${++sessionIndex}@${getDateTime()}.jpg`);
+        a.setAttribute('download', fileName);
     
         var aj = $(a);
         aj.appendTo('body');
         aj[0].click();
         aj.remove();
+
+        uploadImage(compositeImageUrl, fileName);
+    }
+
+    /**
+     * Uploads an image file to Google Drive.
+     */
+    async function uploadImage(image, fileName) {
+        const formData = new FormData();
+        formData.append('image', image);
+        formData.append('fileName', fileName);
+      
+        try {
+            const response = await fetch('http://localhost:3000/upload', {
+                method: 'POST',
+                body: formData
+              });
+            
+              if (!response.ok) {
+                throw new Error('Failed to Upload to Google Drive: Response was bad');
+              }
+        } catch(e) {
+            throw new Error('Failed to Upload to Google Drive: ' + e);
+        }
+
+      
+        const data = await response.json();
+        return data.fileId;
     }
 
     // Event listeners
