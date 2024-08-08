@@ -7,15 +7,17 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const COUNTDOWN_TIME_IN_SECONDS = 3;
-    const NUMBER_OF_PICTURES = 4;
+    const NUMBER_OF_PICTURES = 2;
     const PHOTO_INSTRUCTIONS = ["Get Ready!", "Strike a Pose!", "Say Cheese!"];
     const webcamElement = document.getElementById('camera-feed');
     const canvasElement = document.getElementById('camera-canvas');
-    const snapSoundElement = new Audio('/audio/onPhotoTaken.wav');
-    const webcam = new Webcam(webcamElement, 'user', canvasElement, snapSoundElement);
+    const onPhotoTakenAudio = new Audio('./audio/onPhotoTaken.mp3');
+    const onCountdownAudio = new Audio('./audio/onCountdown.wav');
+    const webcam = new Webcam(webcamElement, 'user', canvasElement, onPhotoTakenAudio);
     // Compostite Settings
     const NUMBER_OF_COLS = 2;
     const NUMBER_OF_ROWS = 2;
+    const PATH_TO_COMPOSITE = 'img/gridTemplate.png';
 
     let currentState = 'idle';
     let photoIndex = 0;
@@ -92,10 +94,9 @@ document.addEventListener('DOMContentLoaded', () => {
      * @param {function} onComplete - The callback function to call when the countdown is complete.
      */
     function startCountdown(seconds, onComplete) {
-        const audio = new Audio('./Audio/onCountdown.wav');
         const countdownElement = document.getElementById('countdown-timer');
         countdownElement.innerText = seconds;
-        audio.play();
+        onCountdownAudio.play();
         countdownInterval = setInterval(() => {
             seconds--;
             countdownElement.innerText = seconds;
@@ -103,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 clearInterval(countdownInterval);
                 onComplete();
             } else {
-                audio.play();
+                onCountdownAudio.play();
             }
         }, 1000);
     }
@@ -112,8 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * Takes a photo and flashes the screen.
      */
     function takePhoto() {
-        // Simulate photo taking
-        console.log('Photo taken');
+        onPhotoTakenAudio.play();
         flashScreen();
         savePhoto();
         photoIndex++;
@@ -211,26 +211,35 @@ document.addEventListener('DOMContentLoaded', () => {
      * Creates a composite photo from all captured photos.
      */
     function createCompositePhoto() {
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
-        const photoWidth = 400;
-        const photoHeight = 300;
-        canvas.width = photoWidth * NUMBER_OF_COLS;
-        canvas.height = photoHeight * NUMBER_OF_ROWS;
+        const template = new Image();
+        template.src = PATH_TO_COMPOSITE;
+        template.onload = () => {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            canvas.width = template.width;
+            canvas.height = template.height;
+            context.drawImage(template, 0, 0);
 
-        capturedPhotos.forEach((photoUrl, index) => {
-            const img = new Image();
-            img.src = photoUrl;
-            img.onload = () => {
-                const col = index % NUMBER_OF_COLS;
-                const row = Math.floor(index / NUMBER_OF_COLS);
-                context.drawImage(img, col * photoWidth, row * photoHeight, photoWidth, photoHeight);
-                if (index === capturedPhotos.length -1) {
-                    const compositeImageUrl = canvas.toDataURL('image/png');
-                    displayCompositePhoto(compositeImageUrl);
+            const photoWidth = 987.6;
+            const photoHeight = 652.5;
+            const photoPositions = [
+                { x: 43.1, y: 67.8, width: photoWidth, height: photoHeight }, // photo 1
+                { x: 43.1, y: 731.3, width: photoWidth, height: photoHeight }, // photo 2
+            ]
+
+            capturedPhotos.forEach((photoUrl, index) => {
+                const img = new Image();
+                img.src = photoUrl;
+                img.onload = () => {
+                    const pos = photoPositions[index];
+                    context.drawImage(img, pos.x, pos.y, pos.width, pos.height);
+                    if (index === capturedPhotos.length -1) {
+                        const compositeImageUrl = canvas.toDataURL('image/png');
+                        displayCompositePhoto(compositeImageUrl);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     /**
