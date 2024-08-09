@@ -11,13 +11,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const PHOTO_INSTRUCTIONS = ["Get Ready!", "Strike a Pose!", "Say Cheese!"];
     const webcamElement = document.getElementById('camera-feed');
     const canvasElement = document.getElementById('camera-canvas');
-    const onPhotoTakenAudio = new Audio('./audio/onPhotoTaken.mp3');
-    const onCountdownAudio = new Audio('./audio/onCountdown.wav');
+    const onPhotoTakenAudio = new Audio('./assets/audio/onPhotoTaken.mp3');
+    const onCountdownAudio = new Audio('./assets/audio/onCountdown.wav');
     const webcam = new Webcam(webcamElement, 'user', canvasElement, onPhotoTakenAudio);
     // Compostite Settings
     const NUMBER_OF_COLS = 2;
     const NUMBER_OF_ROWS = 2;
-    const PATH_TO_COMPOSITE = 'img/gridTemplate.png';
+    const PATH_TO_COMPOSITE = './assets/img/gridTemplate.png';
 
     let currentState = 'idle';
     let photoIndex = 0;
