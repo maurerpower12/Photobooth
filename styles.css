@@ -70,6 +70,16 @@ video#camera-feed {
     border-radius: 5px;
 }
 
+#backend-connection-state {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    color: red;
+    padding: 5px;
+    border-radius: 5px;
+}
+
 #qrCode {
     width: 100px;
     height: 100px;

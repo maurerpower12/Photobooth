@@ -28,8 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let capturedPhotos = [];
 
     // Backend settings
-    const statusMessageElement = document.getElementById("status-message");
-    const appElement = document.getElementById("app");
+    const backendConnectionState = document.getElementById("backend-connection-state");
     const healthCheckEndpoint = `http://localhost:3000/api/healthcheck`;
     const enforeHealthCheck = true;
     const timeoutMs = 5000;
@@ -311,19 +310,17 @@ document.addEventListener('DOMContentLoaded', () => {
             fetch(healthCheckEndpoint)
             .then(response => {
                 if (response.ok) {
-                    statusMessageElement.style.visibility = 'hidden';
-                    appElement.style.visibility = 'show';
+                    backendConnectionState.innerHTML = "Connected";
+                    backendConnectionState.style.color = "green";
                 } else {
-                    appElement.style.visibility = 'hidden';
-                    statusMessageElement.textContent = "Server is down. Retrying...";
-                    statusMessageElement.style.color = "red";
+                    backendConnectionState.innerHTML = "Server is down. Retrying...";
+                    backendConnectionState.style.color = "red";
                     setTimeout(checkServerStatus, timeoutMs);
                 }
             })
             .catch(error => {
-                appElement.style.visibility = 'hidden';
-                statusMessageElement.textContent = "[ERROR] Server is down. Retrying...";
-                statusMessageElement.style.color = "red";
+                backendConnectionState.innerHTML = "[ERROR] Server is down. Retrying...";
+                backendConnectionState.style.color = "red";
                 setTimeout(checkServerStatus, timeoutMs);
             });
         }
