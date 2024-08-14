@@ -277,24 +277,48 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * Uploads an image file to Google Drive.
+     * Helper function to convert Base64 data URL to Blob
+    */
+    function dataURLToBlob(dataURL) {
+        const parts = dataURL.split(';base64,');
+        const byteString = atob(parts[1]);
+        const mimeString = parts[0].split(':')[1];
+
+        const arrayBuffer = new ArrayBuffer(byteString.length);
+        const uint8Array = new Uint8Array(arrayBuffer);
+
+        for (let i = 0; i < byteString.length; i++) {
+            uint8Array[i] = byteString.charCodeAt(i);
+        }
+
+        return new Blob([arrayBuffer], { type: mimeString });
+    }
+
+    /**
+     * Uploads an image file to the backend.
      */
     async function uploadImage(image, fileName) {
         const formData = new FormData();
-        formData.append('image', image);
+
+        // Convert Base64 URL to Blob
+        const blob = dataURLToBlob(image);
+
+        // Create a FormData object
+        formData.append('photo', blob, fileName);
         formData.append('fileName', fileName);
+        console.log('Attempting to upload: ' + fileName);
       
         try {
-            const response = await fetch('http://localhost:3000/upload', {
+            const response = await fetch('http://localhost:3000/api/upload', {
                 method: 'POST',
                 body: formData
               });
             
-              if (!response.ok) {
-                throw new Error('Failed to Upload to Google Drive: Response was bad');
+              if (!response.success) {
+                throw new Error('Failed to Upload to Backend: Response was bad');
               }
         } catch(e) {
-            throw new Error('Failed to Upload to Google Drive: ' + e);
+            throw new Error('Failed to Upload to Backend: ' + e);
         }
 
       
