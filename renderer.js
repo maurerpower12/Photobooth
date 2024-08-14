@@ -27,6 +27,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let pictureCounter = 0;
     let capturedPhotos = [];
 
+    // Backend settings
+    const statusMessageElement = document.getElementById("status-message");
+    const appElement = document.getElementById("app");
+    const healthCheckEndpoint = `https://localhost:3000/api/healthcheck`;
+    const enforeHealthCheck = false;
+    const timeoutMs = 5000;
+
+
     /**
      * Switches the application to the specified state.
      * @param {string} newState - The new state to switch to.
@@ -295,6 +303,32 @@ document.addEventListener('DOMContentLoaded', () => {
         return data.fileId;
     }
 
+    /**
+     * Checks the status of the backend service.
+     */
+    function checkServerStatus() {
+        if (enforeHealthCheck) {
+            fetch(healthCheckEndpoint)
+            .then(response => {
+                if (response.ok) {
+                    statusMessageElement.style.visibility = 'hidden';
+                    appElement.style.visibility = 'show';
+                } else {
+                    appElement.style.visibility = 'hidden';
+                    statusMessageElement.textContent = "Server is down. Retrying...";
+                    statusMessageElement.style.color = "red";
+                    setTimeout(checkServerStatus, timeoutMs);
+                }
+            })
+            .catch(error => {
+                appElement.style.visibility = 'hidden';
+                statusMessageElement.textContent = "[ERROR] Server is down. Retrying...";
+                statusMessageElement.style.color = "red";
+                setTimeout(checkServerStatus, timeoutMs);
+            });
+        }
+    }
+
     // Event listeners
     document.getElementById('start-button').addEventListener('click', () => {
         switchState('prepareForCountdown');
@@ -316,4 +350,5 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize the app
     initializeApp();
     startLiveCameraFeed();
+    checkServerStatus();
 });
