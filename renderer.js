@@ -30,8 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Backend settings
     const statusMessageElement = document.getElementById("status-message");
     const appElement = document.getElementById("app");
-    const healthCheckEndpoint = `https://localhost:3000/api/healthcheck`;
-    const enforeHealthCheck = false;
+    const healthCheckEndpoint = `http://localhost:3000/api/healthcheck`;
+    const enforeHealthCheck = true;
     const timeoutMs = 5000;
 
 
