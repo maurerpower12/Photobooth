@@ -8,6 +8,7 @@ body, html {
     height: 100%;
     width: 100%;
     background-color: #000000;
+    cursor: crosshair;
 }
 
 .rotate {
@@ -117,7 +118,7 @@ video#camera-feed {
   -webkit-user-select: none;
   touch-action: manipulation;
   white-space: nowrap;
-  cursor: pointer;
+  cursor: crosshair;
 }
 
 #done-button, #input-button  {
