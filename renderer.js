@@ -8,12 +8,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const COUNTDOWN_TIME_IN_SECONDS = 3;
     const NUMBER_OF_PICTURES = 2;
-    const PHOTO_INSTRUCTIONS = ["Get Ready!", "Strike a Pose!", "Say Cheese!"];
+    const PHOTO_INSTRUCTIONS = ["Get Ready!", "Strike a Pose!", "Say Cheese!", "You look great!"];
     const webcamElement = document.getElementById('camera-feed');
     const canvasElement = document.getElementById('camera-canvas');
     const onPhotoTakenAudio = new Audio('./assets/audio/onPhotoTaken.mp3');
     const onCountdownAudio = new Audio('./assets/audio/onCountdown.wav');
     const webcam = new Webcam(webcamElement, 'user', canvasElement, onPhotoTakenAudio);
+    const videoAspectRation = 1.0;
+
     // Compostite Settings
     const NUMBER_OF_COLS = 2;
     const NUMBER_OF_ROWS = 2;
@@ -135,8 +137,8 @@ document.addEventListener('DOMContentLoaded', () => {
         flashElement.style.position = 'absolute';
         flashElement.style.top = '0';
         flashElement.style.left = '0';
-        flashElement.style.width = '100%';
-        flashElement.style.height = '100%';
+        flashElement.style.width = '100vh';
+        flashElement.style.height = '100vw';
         flashElement.style.backgroundColor = 'orange';
         flashElement.style.opacity = '0';
         flashElement.style.transition = 'opacity 0.5s';

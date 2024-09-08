@@ -53,8 +53,9 @@ class Webcam {
       } else {
           videoConstraints.deviceId = { exact: this._selectedDeviceId};
       }
-      videoConstraints.width = {exact: this._webcamElement.width};
-      videoConstraints.height = {exact: this._webcamElement.height};
+      videoConstraints.width = {min: 0, ideal: this._webcamElement.width, max: 1440};
+      videoConstraints.height = {min: 0, ideal: this._webcamElement.height, max: 960};
+      videoConstraints.frameRate =  { ideal: 60, max: 60 }
       var constraints = {
           video: videoConstraints,
           audio: false
@@ -89,7 +90,7 @@ class Webcam {
     4. Start stream
   */
   async start(startStream = true) {
-    return new Promise((resolve, reject) => {         
+    return new Promise((resolve, reject) => {
       this.stop();
       navigator.mediaDevices.getUserMedia(this.getMediaConstraints()) //get permisson from user
         .then(stream => {
