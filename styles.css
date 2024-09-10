@@ -144,3 +144,14 @@ video#camera-feed {
     white-space: nowrap;
     cursor: pointer;
   }
+
+  #flash {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(255, 241, 224);
+    opacity: 0;
+    transition: opacity 0.5s;
+  }

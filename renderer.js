@@ -11,15 +11,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const PHOTO_INSTRUCTIONS = ["Get Ready!", "Strike a Pose!", "Say Cheese!", "You look great!"];
     const webcamElement = document.getElementById('camera-feed');
     const canvasElement = document.getElementById('camera-canvas');
-    const onPhotoTakenAudio = new Audio('./assets/audio/onPhotoTaken.mp3');
-    const onCountdownAudio = new Audio('./assets/audio/onCountdown.wav');
+    const onPhotoTakenAudio = new Audio('https://raw.githubusercontent.com/maurerpower12/Photobooth/95c937eb5e6f909b1e661b9ae6e812210deb9057/assets/audio/onPhotoTaken.mp3');
+    const onCountdownAudio = new Audio('https://raw.githubusercontent.com/maurerpower12/Photobooth/95c937eb5e6f909b1e661b9ae6e812210deb9057/assets/audio/onCountdown.wav');
     const webcam = new Webcam(webcamElement, 'user', canvasElement, onPhotoTakenAudio);
     const videoAspectRation = 1.0;
 
     // Compostite Settings
     const NUMBER_OF_COLS = 2;
     const NUMBER_OF_ROWS = 2;
-    const PATH_TO_COMPOSITE = './assets/img/gridTemplate.png';
+    const PATH_TO_COMPOSITE = 'https://raw.githubusercontent.com/maurerpower12/Photobooth/95c937eb5e6f909b1e661b9ae6e812210deb9057/assets/img/gridTemplate.png';
 
     let currentState = 'idle';
     let photoIndex = 0;
@@ -134,16 +134,9 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function flashScreen() {
         const flashElement = document.createElement('div');
-        flashElement.style.position = 'absolute';
-        flashElement.style.top = '0';
-        flashElement.style.left = '0';
-        flashElement.style.width = '100vh';
-        flashElement.style.height = '100vw';
-        flashElement.style.backgroundColor = 'orange';
-        flashElement.style.opacity = '0';
-        flashElement.style.transition = 'opacity 0.5s';
+        flashElement.id = 'flash';
         document.body.appendChild(flashElement);
-        flashElement.style.opacity = '1';
+            flashElement.style.opacity = '1';
         setTimeout(() => {
             flashElement.style.opacity = '0';
             setTimeout(() => {
@@ -368,6 +361,9 @@ document.addEventListener('DOMContentLoaded', () => {
             switchState('prepareForCountdown');
             startPhotoCaptureSequence();
         }
+    });
+    document.getElementById('flash-button').addEventListener('click', () => {
+        flashScreen();
     });
 
     // Initialize the app
