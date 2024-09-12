@@ -35,8 +35,8 @@ body, html {
 
 video#camera-feed {
     position: absolute;
-    width: 1440px;
-    height: 960px;
+    width: 1920px;
+    height: 1080px;
     object-fit: cover;
     z-index: 0;
 }
