@@ -38,7 +38,7 @@ video#camera-feed {
     height: 1080px;
     object-fit: cover;
     z-index: 0;
-    top: 33%;
+    top: 17%;
 }
 
 #overlay {
@@ -132,7 +132,7 @@ video#camera-feed {
 
 .top h1 {
     color: white;
-    font-size: 150px;
+    font-size: 70px;
 }
 
 .bottom {
@@ -140,4 +140,30 @@ video#camera-feed {
     position: fixed;
     left: 25%;
     width: 100%;
+}
+
+.fancyFont {
+    font-family: "Playwrite CU", cursive;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+.radiate-btn {
+    animation: shadow-pulse 1s infinite;
+    background-color: #f1f1f1;
+    color: #ffffff!important;
+}
+
+@keyframes shadow-pulse
+{
+  0% {
+    box-shadow: 0 0 0 0px #5B42F3fd;
+  }
+  100% {
+    box-shadow: 0 0 0 200px rgba(0, 0, 0, 0);
+  }
+}
+
+.play_circle {
+    font-size: 75px !important;
 }
