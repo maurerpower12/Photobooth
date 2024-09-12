@@ -240,8 +240,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const fileName = `photoboothComposite${++sessionIndex}@${getDateTime()}.jpg`;
         img.src = compositeImageUrl;
         img.alt = "Compositie Photo";
-        img.width = 400 * NUMBER_OF_COLS;
-        img.height = 300 * NUMBER_OF_ROWS;
         compositeDiv.innerHTML = '';
         compositeDiv.appendChild(img);
 
