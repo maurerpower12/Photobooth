@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const COUNTDOWN_TIME_IN_SECONDS = 3;
     const NUMBER_OF_PICTURES = 2;
-    const PHOTO_INSTRUCTIONS = ["Get Ready!", "Strike a Pose!", "Say Cheese!", "You look great!"];
+    const PHOTO_INSTRUCTIONS = ["Get Ready!", "Strike a Pose!", "Say Cheese!", "Looking good!"];
     const webcamElement = document.getElementById('camera-feed');
     const canvasElement = document.getElementById('camera-canvas');
     const onPhotoTakenAudio = new Audio('https://raw.githubusercontent.com/maurerpower12/Photobooth/95c937eb5e6f909b1e661b9ae6e812210deb9057/assets/audio/onPhotoTaken.mp3');
