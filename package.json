@@ -7,12 +7,25 @@
   "version": "1.0.0",
   "author": "josephmaurer",
   "scripts": {
-    "start": "electron ."
-  },
-  "devDependencies": {
-    "electron": "^28.2.0"
+    "start": "electron .",
+    "build": "electron-builder"
   },
   "dependencies": {
-    "electron-dl": "^4.0.0"
+    "electron-dl": "4.0.0",
+    "fs": "0.0.1-security"
+  },
+  "build": {
+    "appId": "com.mwrpwr.photobooth",
+    "mac": {
+      "target": [ {
+          "target": "dmg",
+          "arch": "x64"
+        }
+      ]
+    }
+  },
+  "devDependencies": {
+    "electron": "28.2.0",
+    "electron-builder": "^25.0.5"
   }
 }
