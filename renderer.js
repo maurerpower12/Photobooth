@@ -83,9 +83,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 2000);
         } else {
             switchState('review');
-            displayCapturedPhotos();
             createCompositePhoto();
             startReviewTimeout();
+            displayCamera(false);
         }
     }
 
@@ -151,6 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function startReviewTimeout() {
         reviewTimeout = setTimeout(() => {
             switchState('idle');
+            displayCamera(true);
         }, 300000); // 5 minutes
     }
 
@@ -159,6 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function initializeApp() {
         switchState('idle');
+        displayCamera(true);
     }
 
     /**
@@ -191,22 +193,6 @@ document.addEventListener('DOMContentLoaded', () => {
         aj.remove();
 
         uploadImage(picture,fileName);
-    }
-
-    /**
-     * Displays the captures photos in the thumbnails.
-     */
-    function displayCapturedPhotos() {
-        const thumbnailsDiv = document.getElementById('thumbnails');
-        thumbnailsDiv.innerHTML = '';
-
-        capturedPhotos.forEach((photoUrl, index) => {
-            const img = document.createElement('img');
-            img.src = photoUrl;
-            img.onload = () => {
-                thumbnailsDiv.appendChild(img);
-            }
-        });
     }
 
     /**
@@ -345,6 +331,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function displayCamera(state) {
+        if (!state) {
+            webcamElement.classList.add("d-none");
+        } else {
+            webcamElement.classList.remove("d-none");
+        }
+    }
+
     // Event listeners
     document.getElementById('start-button').addEventListener('click', () => {
         switchState('prepareForCountdown');
@@ -353,6 +347,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('done-button').addEventListener('click', () => {
         clearTimeout(reviewTimeout);
+        displayCamera(true);
         switchState('idle');
     });
 
