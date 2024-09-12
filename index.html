@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playwrite+CU:wght@100..400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 <body>
     <div id="app" class="rotate">
@@ -37,9 +38,17 @@
             <div id="review-state" class="state">
                 <div id="thumbnails" class="d-none"></div>
                 <div id="composite-photo"></div>
-                <img src="https://raw.githubusercontent.com/maurerpower12/Photobooth/95c937eb5e6f909b1e661b9ae6e812210deb9057/assets/img/ShareQRCode.png" alt="Share QR Code" id="qrCode" />
-                <button id="done-button">Done</button>
-                <h2>Thank you!</h2>
+                <div class="top">
+                    <h1 class="fancyFont reviewStateHeader">Scan to download 💯</h1>
+                    <img src="https://raw.githubusercontent.com/maurerpower12/Photobooth/95c937eb5e6f909b1e661b9ae6e812210deb9057/assets/img/ShareQRCode.png" alt="Share QR Code" id="qrCode" />
+                </div>
+                <div class="done-bottom">
+                    <button id="done-button radiate-btn">Done
+                        <span class="material-symbols-outlined check">
+                            task_alt
+                        </span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
