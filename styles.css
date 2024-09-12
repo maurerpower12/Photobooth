@@ -211,3 +211,8 @@ video#camera-feed {
     width : 65%;
     height: auto; /*to preserve the aspect ratio of the image*/
 }
+
+#photo-instructions {
+    color: white;
+    font-size: 70px;
+}
