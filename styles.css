@@ -203,8 +203,8 @@ video#camera-feed {
 #composite-photo {
     position: absolute;
     object-fit: cover;
-    z-index: 99;
-    top: 40%;
+    z-index: 2;
+    top: 45%;
 }
 
 #composite-photo > img {
