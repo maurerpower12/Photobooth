@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const onPhotoTakenAudio = new Audio('https://raw.githubusercontent.com/maurerpower12/Photobooth/95c937eb5e6f909b1e661b9ae6e812210deb9057/assets/audio/onPhotoTaken.mp3');
     const onCountdownAudio = new Audio('https://raw.githubusercontent.com/maurerpower12/Photobooth/95c937eb5e6f909b1e661b9ae6e812210deb9057/assets/audio/onCountdown.wav');
     const webcam = new Webcam(webcamElement, 'user', canvasElement, onPhotoTakenAudio);
-    const videoAspectRation = 1.0;
+    const DOWNLOAD_LOCALLY = false;
 
     // Compostite Settings
     const NUMBER_OF_COLS = 2;
@@ -164,13 +164,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * Returns the date time in string format
+     * Returns the date time in a file name-safe string format
      */
     function getDateTime() {
         let date = new Date();
-    
-        let dateString = date.toLocaleDateString("en-US", {month: 'numeric', day: 'numeric', year: 'numeric'});
-        let timeString = date.toLocaleTimeString("en-US", {hour: 'numeric', minute: 'numeric', second: 'numeric' , hour12: true});
+
+        let dateString = date.toLocaleDateString("en-US", { month: 'numeric', day: 'numeric', year: 'numeric' })
+            .replace(/\//g, '-'); // Replace slashes with hyphens
+
+        let timeString = date.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true })
+            .replace(/:/g, '-')   // Replace colons with hyphens
+            .replace(/ /g, '-');   // Replace spaces with hyphens
+
         return `${dateString}-${timeString}`;
     }
 
@@ -179,19 +184,19 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function savePhoto() {
         let picture = webcam.snap();
-        const fileName = `photobooth${pictureCounter}@${getDateTime()}.jpg`;
+        const fileName = `photobooth${pictureCounter}@${getDateTime()}.png`;
         pictureCounter++;
-
-        var a = document.createElement('a');
-        a.setAttribute('href', picture);
         capturedPhotos.push(picture);
-        a.setAttribute('download', fileName);
-    
-        var aj = $(a);
-        aj.appendTo('body');
-        aj[0].click();
-        aj.remove();
-
+        if (DOWNLOAD_LOCALLY) {
+            var a = document.createElement('a');
+            a.setAttribute('href', picture);
+            a.setAttribute('download', fileName);
+        
+            var aj = $(a);
+            aj.appendTo('body');
+            aj[0].click();
+            aj.remove();
+        }
         uploadImage(picture,fileName);
     }
 
@@ -224,9 +229,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (index === capturedPhotos.length -1) {
                         const compositeImageUrl = canvas.toDataURL('image/png');
                         displayCompositePhoto(compositeImageUrl);
+                        uploadImage(compositeImageUrl, `photoboothComposite${++sessionIndex}@${getDateTime()}.png`);
                     }
                 }
             });
+        }
+        template.onerror = () => {
+            console.error("Could not load template :(");
         }
     }
 
@@ -237,22 +246,21 @@ document.addEventListener('DOMContentLoaded', () => {
     function displayCompositePhoto(compositeImageUrl) {
         const compositeDiv = document.getElementById('composite-photo');
         const img = document.createElement('img');
-        const fileName = `photoboothComposite${++sessionIndex}@${getDateTime()}.jpg`;
         img.src = compositeImageUrl;
         img.alt = "Compositie Photo";
         compositeDiv.innerHTML = '';
         compositeDiv.appendChild(img);
 
-        var a = document.createElement('a');
-        a.setAttribute('href', compositeImageUrl);
-        a.setAttribute('download', fileName);
-    
-        var aj = $(a);
-        aj.appendTo('body');
-        aj[0].click();
-        aj.remove();
-
-        uploadImage(compositeImageUrl, fileName);
+        if (DOWNLOAD_LOCALLY) {
+            var a = document.createElement('a');
+            a.setAttribute('href', compositeImageUrl);
+            a.setAttribute('download', fileName);
+        
+            var aj = $(a);
+            aj.appendTo('body');
+            aj[0].click();
+            aj.remove();
+        }
     }
 
     /**
@@ -284,7 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Create a FormData object
         formData.append('photo', blob, fileName);
-        formData.append('fileName', fileName);
+        formData.append('filename', fileName);
         console.log('Attempting to upload: ' + fileName);
       
         try {
@@ -293,16 +301,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: formData
               });
             
-              if (!response.success) {
+              console.log("Backend rsp: " + response.statusText);
+              if (!response.ok) {
                 throw new Error('Failed to Upload to Backend: Response was bad');
               }
         } catch(e) {
             throw new Error('Failed to Upload to Backend: ' + e);
         }
-
-      
-        const data = await response.json();
-        return data.fileId;
     }
 
     /**
