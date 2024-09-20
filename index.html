@@ -12,7 +12,9 @@
 </head>
 <body>
     <div id="app" class="rotate">
-        <video id="camera-feed" autoplay></video>
+        <div id="video-wrap">
+            <video id="camera-feed" autoplay></video>
+        </div>
         <canvas id="camera-canvas" class="d-none"></canvas>
         <div id="overlay">
             <div id="state-display" class="debug">State: Idle</div>
@@ -43,7 +45,7 @@
                 <div id="composite-photo"></div>
                 <div class="top">
                     <h1 class="fancyFont reviewStateHeader">Scan to download 💯</h1>
-                    <img src="https://raw.githubusercontent.com/maurerpower12/Photobooth/95c937eb5e6f909b1e661b9ae6e812210deb9057/assets/img/ShareQRCode.png" alt="Share QR Code" id="qrCode" />
+                    <div id="qrCode"></div>
                 </div>
                 <div class="done-bottom">
                     <button id="done-button" class="radiate-btn">Done
@@ -58,5 +60,6 @@
     <script src="./jQuery3-7-1.js"></script>
     <script src="./renderer.js"></script>
     <script src="./webcam.js"></script>
+    <script src="./qrcode.min.js"></script>
 </body>
 </html>

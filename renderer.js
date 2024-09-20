@@ -17,8 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const DOWNLOAD_LOCALLY = false;
 
     // Compostite Settings
-    const NUMBER_OF_COLS = 2;
-    const NUMBER_OF_ROWS = 2;
     const PATH_TO_COMPOSITE = 'https://raw.githubusercontent.com/maurerpower12/Photobooth/95c937eb5e6f909b1e661b9ae6e812210deb9057/assets/img/gridTemplate.png';
 
     let currentState = 'idle';
@@ -197,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
             aj[0].click();
             aj.remove();
         }
-        uploadImage(picture,fileName);
+        uploadImage(picture,fileName, false);
     }
 
     /**
@@ -229,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (index === capturedPhotos.length -1) {
                         const compositeImageUrl = canvas.toDataURL('image/png');
                         displayCompositePhoto(compositeImageUrl);
-                        uploadImage(compositeImageUrl, `photoboothComposite${++sessionIndex}@${getDateTime()}.png`);
+                        uploadImage(compositeImageUrl, `photoboothComposite${++sessionIndex}@${getDateTime()}.png`, true);
                     }
                 }
             });
@@ -284,7 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
     /**
      * Uploads an image file to the backend.
      */
-    async function uploadImage(image, fileName) {
+    async function uploadImage(image, fileName, uploadToRemote) {
         const formData = new FormData();
 
         // Convert Base64 URL to Blob
@@ -293,6 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Create a FormData object
         formData.append('photo', blob, fileName);
         formData.append('filename', fileName);
+        formData.append('uploadToRemote', uploadToRemote);
         console.log('Attempting to upload: ' + fileName);
       
         try {
@@ -301,9 +300,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: formData
               });
             
-              console.log("Backend rsp: " + response.statusText);
               if (!response.ok) {
                 throw new Error('Failed to Upload to Backend: Response was bad');
+              }
+              const data = await response.json();
+              console.log("Backend rsp: " + JSON.stringify(data));
+
+              if (uploadToRemote === true) {
+                console.log("Attempting to make a QR code for " + data.imageUrl);
+                displayQRCode(data.imageUrl);
               }
         } catch(e) {
             throw new Error('Failed to Upload to Backend: ' + e);
@@ -318,17 +323,14 @@ document.addEventListener('DOMContentLoaded', () => {
             fetch(healthCheckEndpoint)
             .then(response => {
                 if (response.ok) {
-                    backendConnectionState.innerHTML = "Connected";
-                    backendConnectionState.style.color = "green";
+                    backendConnectionState.innerHTML = "✅";
                 } else {
-                    backendConnectionState.innerHTML = "Server is down. Retrying...";
-                    backendConnectionState.style.color = "red";
-                    setTimeout(checkServerStatus, timeoutMs);
+                    backendConnectionState.innerHTML = "❌";
                 }
+                setTimeout(checkServerStatus, timeoutMs);
             })
             .catch(error => {
-                backendConnectionState.innerHTML = "[ERROR] Server is down. Retrying...";
-                backendConnectionState.style.color = "red";
+                backendConnectionState.innerHTML = "⛔️";
                 setTimeout(checkServerStatus, timeoutMs);
             });
         }
@@ -340,6 +342,14 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             webcamElement.classList.remove("d-none");
         }
+    }
+
+    function displayQRCode(photoUrl) {
+        const qr = new QRCode(document.getElementById("qrCode"),{
+            text: photoUrl,
+            width: 200,
+            height: 200
+        });
     }
 
     // Event listeners
