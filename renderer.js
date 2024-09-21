@@ -345,7 +345,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function displayQRCode(photoUrl) {
-        const qr = new QRCode(document.getElementById("qrCode"),{
+        const div = document.getElementById("qrCode");
+        div.innerHTML = "";
+        const qr = new QRCode(div,{
             text: photoUrl,
             width: 200,
             height: 200
