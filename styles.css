@@ -44,6 +44,16 @@ video#camera-feed {
     z-index: 0;
     top: 17%;
 }
+#video-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    scale: 0.5;
+}
 
 #overlay {
     position: relative;
@@ -95,6 +105,14 @@ video#camera-feed {
     width: 200px;
     height: 200px;
     background-color: white;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
 }
 
 #start-button  {
@@ -203,6 +221,7 @@ video#camera-feed {
 
 .reviewStateHeader {
     margin: 0px;
+    margin-bottom: 20px;
 }
 
 #composite-photo {
