@@ -18,6 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Compostite Settings
     const PATH_TO_COMPOSITE = 'https://raw.githubusercontent.com/maurerpower12/JosephAMaurerResumeWebsite/refs/heads/master/img/photobooth/assets/BaseCamp.png';
+    const photoWidth = 960; // Keep in mind the picture size is 1920x1080
+    const photoHeight = 540;
 
     let currentState = 'idle';
     let photoIndex = 0;
@@ -211,8 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
             canvas.height = template.height;
             context.drawImage(template, 0, 0);
 
-            const photoWidth = 987.6;
-            const photoHeight = 652.5;
+
             const photoPositions = [
                 { x: 43.1, y: 67.8, width: photoWidth, height: photoHeight }, // photo 1
                 { x: 43.1, y: 731.3, width: photoWidth, height: photoHeight }, // photo 2
