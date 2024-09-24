@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const DOWNLOAD_LOCALLY = false;
 
     // Compostite Settings
-    const PATH_TO_COMPOSITE = 'https://raw.githubusercontent.com/maurerpower12/Photobooth/95c937eb5e6f909b1e661b9ae6e812210deb9057/assets/img/gridTemplate.png';
+    const PATH_TO_COMPOSITE = 'https://www.dropbox.com/scl/fi/sj4eqhkdmneomnxarxsgb/BaseCampTemplate.png?rlkey=ina48nc5qnt69jxd216sq14xj&st=2io3cmxp&dl=1';
 
     let currentState = 'idle';
     let photoIndex = 0;
