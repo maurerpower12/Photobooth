@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const DOWNLOAD_LOCALLY = false;
 
     // Compostite Settings
-    const PATH_TO_COMPOSITE = 'https://www.dropbox.com/scl/fi/sj4eqhkdmneomnxarxsgb/BaseCampTemplate.png?rlkey=ina48nc5qnt69jxd216sq14xj&st=2io3cmxp&dl=1';
+    const PATH_TO_COMPOSITE = 'https://dl.dropboxusercontent.com/scl/fi/sj4eqhkdmneomnxarxsgb/BaseCampTemplate.png?rlkey=ina48nc5qnt69jxd216sq14xj&st=2io3cmxp';
 
     let currentState = 'idle';
     let photoIndex = 0;
@@ -232,8 +232,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         }
-        template.onerror = () => {
-            console.error("Could not load template :(");
+        template.onerror = (error) => {
+            console.error("Could not load template: " + JSON.stringify(error));
         }
     }
 
