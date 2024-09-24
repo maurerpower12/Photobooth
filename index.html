@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playwrite+CU:wght@100..400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 <body>
     <div id="app" class="rotate">
@@ -18,10 +17,11 @@
         <canvas id="camera-canvas" class="d-none"></canvas>
         <div id="overlay">
             <div id="state-display" class="debug">State: Idle</div>
-            <div id="backend-connection-state" class="debug">---</div>
+            <div id="backend-connection-state">---</div>
             <div id="idle-state" class="state active">
                 <div class="top">
-                    <h1 class="fancyFont">Welcome to our Photobooth 📸</h1>
+                    <h2 class="fancyFont">Welcome to our</h2>
+                    <h1 class="fancyFont">Photo Booth</h1>
                 </div>
                 <div class="bottom">
                     <button id="start-button" class="big-button radiate-btn">START
@@ -43,12 +43,19 @@
             </div>
             <div id="review-state" class="state">
                 <div id="composite-photo"></div>
-                <div class="top">
-                    <h1 class="fancyFont reviewStateHeader">Scan to download 💯</h1>
-                    <div id="qrCode"></div>
+                <div class="review-top">
+                    <h2 class="fancyFont reviewStateHeader">Scan to<br/>download 💯</h2>
+                    <div id="qr">
+                        <div id="qrError"></div>
+                        <div id="qrCode">
+                            <span class="material-symbols-outlined">
+                                arrow_upload_progress
+                            </span>
+                        </div>
+                    </div>
                 </div>
                 <div class="done-bottom">
-                    <button id="done-button" class="radiate-btn">Done
+                    <button id="done-button">Done
                         <span class="material-symbols-outlined check">
                             task_alt
                         </span>
