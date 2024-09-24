@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const DOWNLOAD_LOCALLY = false;
 
     // Compostite Settings
-    const PATH_TO_COMPOSITE = 'https://dl.dropboxusercontent.com/scl/fi/sj4eqhkdmneomnxarxsgb/BaseCampTemplate.png?rlkey=ina48nc5qnt69jxd216sq14xj&st=2io3cmxp';
+    const PATH_TO_COMPOSITE = 'https://raw.githubusercontent.com/maurerpower12/JosephAMaurerResumeWebsite/refs/heads/master/img/photobooth/assets/BaseCamp.png';
 
     let currentState = 'idle';
     let photoIndex = 0;

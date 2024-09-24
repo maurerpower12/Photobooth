@@ -55,7 +55,7 @@ video#camera-feed {
     top: 25%;
     left: 50%;
     transform: translate(-50%, -50%);
-    scale: 0.5;
+    scale: 0.56;
 }
 
 #overlay {
@@ -105,7 +105,8 @@ video#camera-feed {
 }
 
 #qr {
-    margin: 50px;
+    margin-top: 25px;
+    margin-right: 55px;
     display: flex;
     align-items: center;
 }
@@ -209,7 +210,9 @@ video#camera-feed {
 .review-top  h2 {
     color: white;
     font-size: 50px;
-    margin: 30px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 300px;
 }
 
 .bottom {
@@ -253,19 +256,15 @@ video#camera-feed {
     font-size: 75px !important;
 }
 
-.reviewStateHeader {
-    margin: 0px;
-    margin-bottom: 20px;
-}
-
 #composite-photo {
     position: absolute;
     object-fit: cover;
     z-index: 2;
+    width : 100%;
 }
 
 #composite-photo > img {
-    width : 75%;
+    width : 65%;
     height: auto; /*to preserve the aspect ratio of the image*/
     min-width: 650px;
 }
