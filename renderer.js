@@ -215,8 +215,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
             const photoPositions = [
-                { x: 43.1, y: 67.8, width: photoWidth, height: photoHeight }, // photo 1
-                { x: 43.1, y: 731.3, width: photoWidth, height: photoHeight }, // photo 2
+                { x: 60, y: 150.3, width: photoWidth, height: photoHeight }, // photo 1
+                { x: 60, y: 747.5, width: photoWidth, height: photoHeight }, // photo 2
             ]
 
             capturedPhotos.forEach((photoUrl, index) => {
