@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const DOWNLOAD_LOCALLY = false;
 
     // Compostite Settings
-    const PATH_TO_COMPOSITE = 'https://raw.githubusercontent.com/maurerpower12/JosephAMaurerResumeWebsite/refs/heads/master/img/photobooth/assets/BaseCamp.png';
+    const PATH_TO_COMPOSITE = 'https://raw.githubusercontent.com/maurerpower12/Photobooth/refs/heads/main/assets/img/CompositeTemplate.png';
     const photoWidth = 960; // Keep in mind the picture size is 1920x1080
     const photoHeight = 540;
 
