@@ -81,6 +81,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 switchState('countdownSequence');
                 startCountdown(COUNTDOWN_TIME_IN_SECONDS, takePhoto);
             }, 2000);
+
+            setPhotoCountState(true);
         } else {
             switchState('review');
             createCompositePhoto();
@@ -152,6 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
         reviewTimeout = setTimeout(() => {
             switchState('idle');
             displayCamera(true);
+            resetState();
         }, 300000); // 5 minutes
     }
 
@@ -161,6 +164,26 @@ document.addEventListener('DOMContentLoaded', () => {
     function initializeApp() {
         switchState('idle');
         displayCamera(true);
+    }
+
+    /**
+     * Clear any pending state items
+     */
+    function resetState() {
+        // TODO - ideally set this to a loading image
+        const div = document.getElementById("qrCode");
+        div.innerHTML = "";
+
+        const compositeDiv = document.getElementById('composite-photo');
+        compositeDiv.innerHTML = '';
+
+        for(var i = 1; i <= 2; i++) {
+            let elements = document.querySelectorAll('#rect' + i);
+
+            for(var i = 0; i < elements.length; i++) {
+                elements[i].classList.remove("complete");
+            }
+        }
     }
 
     /**
@@ -355,6 +378,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function setPhotoCountState(add) {
+        let elements = document.querySelectorAll('#rect' + photoIndex);
+        for(var i = 0; i < elements.length; i++) {
+            if (add === true) {
+                elements[i].classList.add("complete");
+            } else {
+                elements[i].classList.remove("complete");
+            }
+        }
+    }
+
     // Event listeners
     document.getElementById('start-button').addEventListener('click', () => {
         switchState('prepareForCountdown');
@@ -364,6 +398,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('done-button').addEventListener('click', () => {
         clearTimeout(reviewTimeout);
         displayCamera(true);
+        resetState();
         switchState('idle');
     });
 

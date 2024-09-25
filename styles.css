@@ -199,7 +199,6 @@ video#camera-feed {
     left: 0;
     width: 100%;
     display: flex;
-    align-items: center;
     justify-content: space-between;
 }
 .review-top h1 {
@@ -211,7 +210,7 @@ video#camera-feed {
 .review-top  h2 {
     color: white;
     font-size: 50px;
-    margin-top: 0px;
+    margin-top: 30px;
     margin-bottom: 0px;
     margin-left: 200px;
 }
@@ -273,4 +272,28 @@ video#camera-feed {
 #photo-instructions {
     color: white;
     font-size: 70px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin-top: 444px;
+}
+
+.rectangle {
+    width: 250px;
+    height: 200px;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    font-size: 45px;
+    border-radius: 15%;
+}
+
+.complete {
+    background-color: rgb(98, 182, 124);
 }
