@@ -112,15 +112,15 @@ video#camera-feed {
 }
 
 #qrCode {
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
     background-color: white;
     transform: translate(-50%, -50%);
     background-color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 100px;
+    margin-top: 140px;
 }
 
 #start-button  {
@@ -147,6 +147,7 @@ video#camera-feed {
     align-items: center;
     background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
     border: 0;
+    border-radius: 5%;
     color: #FFFFFF;
     display: flex;
     font-family: Phantomsans, sans-serif;
@@ -212,7 +213,7 @@ video#camera-feed {
     font-size: 50px;
     margin-top: 0px;
     margin-bottom: 0px;
-    margin-left: 300px;
+    margin-left: 200px;
 }
 
 .bottom {

@@ -350,8 +350,8 @@ document.addEventListener('DOMContentLoaded', () => {
         div.innerHTML = "";
         const qr = new QRCode(div,{
             text: photoUrl,
-            width: 200,
-            height: 200
+            width: 300,
+            height: 300
         });
     }
 
