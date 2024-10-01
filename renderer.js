@@ -307,6 +307,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * Uploads an image file to the backend.
      */
     async function uploadImage(image, fileName, uploadToRemote) {
+        const qr = document.getElementById("qr-Header-text");
         const formData = new FormData();
 
         // Convert Base64 URL to Blob
@@ -333,8 +334,10 @@ document.addEventListener('DOMContentLoaded', () => {
               if (uploadToRemote === true) {
                 console.log("Attempting to make a QR code for " + data.imageUrl);
                 displayQRCode(data.imageUrl);
+                webcamElement.classList.remove("d-none");
               }
         } catch(e) {
+            qr.classList.add("d-none");
             throw new Error('Failed to Upload to Backend: ' + e);
         }
     }
