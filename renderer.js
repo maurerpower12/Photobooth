@@ -77,12 +77,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (photoIndex < NUMBER_OF_PICTURES) {
             switchState('prepareForCountdown');
             showRandomInstruction();
+            setPhotoCountState(true, photoIndex+1, "pending");
             setTimeout(() => {
                 switchState('countdownSequence');
                 startCountdown(COUNTDOWN_TIME_IN_SECONDS, takePhoto);
             }, 2000);
 
-            setPhotoCountState(true);
+            setPhotoCountState(true, photoIndex, "complete");
         } else {
             switchState('review');
             createCompositePhoto();
@@ -162,7 +163,13 @@ document.addEventListener('DOMContentLoaded', () => {
      * Initializes the application.
      */
     function initializeApp() {
-        switchState('idle');
+        //switchState('idle');
+        //switchState('countdownSequence');
+        switchState('prepareForCountdown');showRandomInstruction();
+
+        setPhotoCountState(true, 2, "pending");
+        setPhotoCountState(true, 1, "complete");
+
         displayCamera(true);
     }
 
@@ -178,11 +185,8 @@ document.addEventListener('DOMContentLoaded', () => {
         compositeDiv.innerHTML = '';
 
         for(var i = 1; i <= 2; i++) {
-            let elements = document.querySelectorAll('#rect' + i);
-
-            for(var i = 0; i < elements.length; i++) {
-                elements[i].classList.remove("complete");
-            }
+            setPhotoCountState(false, i, "pending");
+            setPhotoCountState(false, i, "complete");
         }
     }
 
@@ -381,13 +385,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function setPhotoCountState(add) {
-        let elements = document.querySelectorAll('#rect' + photoIndex);
+    function setPhotoCountState(add, index, state) {
+        let elements = document.querySelectorAll('#rect' + index);
         for(var i = 0; i < elements.length; i++) {
+            elements[i].className = '';
+            elements[i].classList.add("rectangle");
             if (add === true) {
-                elements[i].classList.add("complete");
+                elements[i].classList.add(state);
             } else {
-                elements[i].classList.remove("complete");
+                elements[i].classList.remove(state);
+                elements[i].textContent = i+1;
             }
         }
     }

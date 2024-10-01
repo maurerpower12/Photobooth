@@ -193,6 +193,10 @@ video#camera-feed {
     margin: 0px;
 }
 
+#countdown-timer {
+    margin-top: 50px !important;
+}
+
 .review-top {
     top: 0;
     position: fixed;
@@ -272,14 +276,15 @@ video#camera-feed {
 #photo-instructions {
     color: white;
     font-size: 70px;
+    margin-top: 50px;
 }
 
-.container {
+.rect-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin-top: 444px;
+    position: absolute;
+    bottom: 200px;
 }
 
 .rectangle {
@@ -295,5 +300,10 @@ video#camera-feed {
 }
 
 .complete {
-    background-color: rgb(98, 182, 124);
+    background-color: rgb(98, 182, 124) !important;
+}
+
+.pending {
+    background-color: rgb(98, 157, 182);
+    outline: 4px solid rgb(98, 157, 182);
 }
