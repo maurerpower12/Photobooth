@@ -35,6 +35,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const enforeHealthCheck = true;
     const timeoutMs = 5000;
 
+    // Attract settings
+    const timeBeforeAttractsStart = 3*60*1000; // 3 minutes
+    const attract1 = document.getElementById("attract-1");
+    let idleTimer;
 
     /**
      * Switches the application to the specified state.
@@ -46,6 +50,10 @@ document.addEventListener('DOMContentLoaded', () => {
         states[currentState].classList.add('active');
         document.getElementById('state-display').innerText = `State: ${newState}`;
         console.log(`State: ${newState}`);
+        if (newState === 'idle') {
+            // Start the initial idle timer
+            resetIdleTimer();
+        }
     }
 
     /**
@@ -380,8 +388,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 
+    // Function to start attract mode
+    function startAttractMode() {
+        if (currentState === 'idle') {
+            console.log("Attract mode started.");
+            attract1.classList.remove("d-none");
+        }
+    }
+
+    // Function to stop attract mode
+    function stopAttractMode() {
+        console.log("Attract mode stopped.");
+        attract1.classList.add("d-none");
+        resetIdleTimer();
+    }
+
+    // Function to reset the idle timer
+    function resetIdleTimer() {
+        clearTimeout(idleTimer); // Clear any existing timer
+        idleTimer = setTimeout(startAttractMode, timeBeforeAttractsStart);
+    }
+
+    // Function to detect user activity and reset idle timer
+    function activityDetected() {
+        if (currentState === 'idle') {
+            console.log("Activity Detected.");
+            stopAttractMode();
+            resetIdleTimer();
+        }
+    }
+
+    // Event listeners for detecting user activity
+    window.addEventListener('keydown', activityDetected);
+    window.addEventListener('mousedown', activityDetected);
+
     // Event listeners
     document.getElementById('start-button').addEventListener('click', () => {
+        stopAttractMode();
         switchState('prepareForCountdown');
         startPhotoCaptureSequence();
     });
@@ -395,6 +438,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.addEventListener('keydown', (event) => {
         if (event.code === 'Space' && currentState === 'idle') {
+            stopAttractMode();
             switchState('prepareForCountdown');
             startPhotoCaptureSequence();
         }
