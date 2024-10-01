@@ -77,13 +77,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (photoIndex < NUMBER_OF_PICTURES) {
             switchState('prepareForCountdown');
             showRandomInstruction();
-            setPhotoCountState(true, photoIndex+1, "pending");
+            setPhotoCountState(photoIndex+1);
             setTimeout(() => {
                 switchState('countdownSequence');
                 startCountdown(COUNTDOWN_TIME_IN_SECONDS, takePhoto);
             }, 2000);
-
-            setPhotoCountState(true, photoIndex, "complete");
         } else {
             switchState('review');
             createCompositePhoto();
@@ -163,13 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * Initializes the application.
      */
     function initializeApp() {
-        //switchState('idle');
-        //switchState('countdownSequence');
-        switchState('prepareForCountdown');showRandomInstruction();
-
-        setPhotoCountState(true, 2, "pending");
-        setPhotoCountState(true, 1, "complete");
-
+        switchState('idle');
         displayCamera(true);
     }
 
@@ -183,11 +175,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const compositeDiv = document.getElementById('composite-photo');
         compositeDiv.innerHTML = '';
-
-        for(var i = 1; i <= 2; i++) {
-            setPhotoCountState(false, i, "pending");
-            setPhotoCountState(false, i, "complete");
-        }
     }
 
     /**
@@ -385,18 +372,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function setPhotoCountState(add, index, state) {
-        let elements = document.querySelectorAll('#rect' + index);
+    function setPhotoCountState(index) {
+        let elements = document.querySelectorAll('#photo-remainder-counter');
         for(var i = 0; i < elements.length; i++) {
-            elements[i].className = '';
-            elements[i].classList.add("rectangle");
-            if (add === true) {
-                elements[i].classList.add(state);
-            } else {
-                elements[i].classList.remove(state);
-                elements[i].textContent = i+1;
-            }
+            elements[i].textContent = `${index} of ${NUMBER_OF_PICTURES}`
         }
+
     }
 
     // Event listeners

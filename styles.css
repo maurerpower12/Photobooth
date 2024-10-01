@@ -279,7 +279,7 @@ video#camera-feed {
     margin-top: 50px;
 }
 
-.rect-container {
+.photo-counter{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -287,23 +287,7 @@ video#camera-feed {
     bottom: 200px;
 }
 
-.rectangle {
-    width: 250px;
-    height: 200px;
-    background-color: lightgray;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 10px;
-    font-size: 45px;
-    border-radius: 15%;
-}
-
-.complete {
-    background-color: rgb(98, 182, 124) !important;
-}
-
-.pending {
-    background-color: rgb(98, 157, 182);
-    outline: 4px solid rgb(98, 157, 182);
+#photo-remainder-counter {
+    color: white;
+    font-size: 120px;
 }
