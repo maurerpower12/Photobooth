@@ -298,7 +298,7 @@ video#camera-feed {
 #attract-1 {
     width: 100vh;
     height: 100vw;
-    background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+    background-image: linear-gradient(144deg,#AF40FF, #0062eb 50%, #5B42F3);
     background-size: 200% 200%;
     animation: rotateGradient 3s linear infinite;
 }
@@ -307,11 +307,22 @@ video#camera-feed {
     color: white;
     font-size: 150px;
     margin: 0;
-    padding-top: 250px;
 }
 
 #attract-1 h1 span{
     font-size: 200px;
+}
+
+#attract-1 h2 {
+    color: white;
+    font-size: 30px;
+    margin: 0px;
+}
+
+#attract-1 > img {
+    width : 65%;
+    height: auto; /*to preserve the aspect ratio of the image*/
+    min-width: 650px;
 }
 
 @keyframes rotateGradient {

@@ -171,6 +171,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function initializeApp() {
         switchState('idle');
         displayCamera(true);
+
+        document.getElementById('attractExampleImage').src = PATH_TO_COMPOSITE;
     }
 
     /**
