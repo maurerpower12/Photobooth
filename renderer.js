@@ -375,11 +375,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function displayQRCode(photoUrl) {
         const div = document.getElementById("qrCode");
         div.innerHTML = "";
-        const qr = new QRCode(div,{
+
+        QrCreator.render({
             text: photoUrl,
-            width: 300,
-            height: 300
-        });
+            radius: 0.1, // 0.0 to 0.5
+            ecLevel: 'H', // L, M, Q, H
+            fill: '#000000', // foreground color
+            background: null, // color or null for transparent
+            size: 275 // in pixels
+          }, div);
     }
 
     function setPhotoCountState(index) {

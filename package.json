@@ -12,12 +12,14 @@
   },
   "dependencies": {
     "electron-dl": "4.0.0",
-    "fs": "0.0.1-security"
+    "fs": "0.0.1-security",
+    "qr-creator": "^1.0.0"
   },
   "build": {
     "appId": "com.mwrpwr.photobooth",
     "mac": {
-      "target": [ {
+      "target": [
+        {
           "target": "dmg",
           "arch": "x64"
         }
