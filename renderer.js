@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const timeoutMs = 5000;
 
     // Attract settings
+    const attractsEnabled = false;
     const timeBeforeAttractsStart = 3*60*1000; // 3 minutes
     const attract1 = document.getElementById("attract-1");
     let idleTimer;
@@ -397,7 +398,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to start attract mode
     function startAttractMode() {
-        if (currentState === 'idle') {
+        if (currentState === 'idle' && attractsEnabled) {
             console.log("Attract mode started.");
             attract1.classList.remove("d-none");
         }
@@ -405,20 +406,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to stop attract mode
     function stopAttractMode() {
-        console.log("Attract mode stopped.");
-        attract1.classList.add("d-none");
-        resetIdleTimer();
+        if (attractsEnabled) {
+            console.log("Attract mode stopped.");
+            attract1.classList.add("d-none");
+            resetIdleTimer();
+        }
     }
 
     // Function to reset the idle timer
     function resetIdleTimer() {
-        clearTimeout(idleTimer); // Clear any existing timer
-        idleTimer = setTimeout(startAttractMode, timeBeforeAttractsStart);
+        if (attractsEnabled) {
+            clearTimeout(idleTimer); // Clear any existing timer
+            idleTimer = setTimeout(startAttractMode, timeBeforeAttractsStart);
+        }
     }
 
     // Function to detect user activity and reset idle timer
     function activityDetected() {
-        if (currentState === 'idle') {
+        if (currentState === 'idle' && attractsEnabled) {
             console.log("Activity Detected.");
             stopAttractMode();
             resetIdleTimer();
