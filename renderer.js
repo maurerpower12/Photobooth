@@ -17,8 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const DOWNLOAD_LOCALLY = false;
 
     // Compostite Settings
-    //const PATH_TO_COMPOSITE = 'https://raw.githubusercontent.com/maurerpower12/Photobooth/refs/heads/main/assets/img/CompositeTemplate.png';
-    const PATH_TO_COMPOSITE = 'https://raw.githubusercontent.com/maurerpower12/Photobooth/ea80b8f5bdae9682a920ffc0ac31255f76f94226/assets/img/Oct4.png';
+    const PATH_TO_COMPOSITE = 'https://raw.githubusercontent.com/maurerpower12/Photobooth/refs/heads/main/assets/img/CompositeTemplate.png';
 
     const photoWidth = 960; // Keep in mind the picture size is 1920x1080
     const photoHeight = 540;
