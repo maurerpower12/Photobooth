@@ -337,7 +337,6 @@ document.addEventListener('DOMContentLoaded', () => {
               if (uploadToRemote === true) {
                 console.log("Attempting to make a QR code for " + data.imageUrl);
                 displayQRCode(data.imageUrl);
-                webcamElement.classList.remove("d-none");
               }
         } catch(e) {
             qr.classList.add("d-none");
